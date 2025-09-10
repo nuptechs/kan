@@ -205,6 +205,40 @@ export default function BoardSelection() {
     },
   });
 
+  // Toggle board status mutation
+  const toggleBoardStatusMutation = useMutation({
+    mutationFn: async (board: Board) => {
+      const newStatus = board.isActive === "true" ? "false" : "true";
+      const response = await apiRequest("PATCH", `/api/boards/${board.id}`, {
+        isActive: newStatus
+      });
+      return response.json();
+    },
+    onSuccess: async () => {
+      // Force refresh da lista de boards
+      await queryClient.invalidateQueries({ queryKey: ["/api/boards"] });
+      await queryClient.refetchQueries({ queryKey: ["/api/boards"] });
+      
+      toast({
+        title: "Status atualizado",
+        description: "O status do board foi alterado com sucesso!",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Erro",
+        description: "Erro ao alterar status do board. Tente novamente.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleToggleBoardStatus = (board: Board, event: React.MouseEvent) => {
+    event.preventDefault(); // Evita navegar para o board
+    event.stopPropagation(); // Evita propagação do clique
+    toggleBoardStatusMutation.mutate(board);
+  };
+
   const handleEditBoard = (board: Board) => {
     setSelectedBoard(board);
     editForm.reset({
@@ -384,7 +418,17 @@ export default function BoardSelection() {
                           {board.name}
                         </h3>
                       </div>
-                      <Badge variant="secondary" data-testid={`badge-status-${board.id}`}>
+                      <Badge 
+                        variant="secondary" 
+                        data-testid={`badge-status-${board.id}`}
+                        className={`cursor-pointer transition-colors hover:opacity-80 ${
+                          board.isActive === "true" 
+                            ? "bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900 dark:text-green-200" 
+                            : "bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900 dark:text-red-200"
+                        }`}
+                        onClick={(e) => handleToggleBoardStatus(board, e)}
+                        title={`Clique para ${board.isActive === "true" ? "inativar" : "ativar"} o board`}
+                      >
                         {board.isActive === "true" ? "Ativo" : "Inativo"}
                       </Badge>
                     </div>
