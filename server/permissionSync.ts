@@ -377,6 +377,12 @@ export class PermissionSyncService {
       console.log(`🔑 [PERMISSION SYNC] ${newPermissions.length} permissões geradas`);
       
       // 3. Obter perfil administrador
+      const existingProfiles = await storage.getProfiles();
+      const wasAdminProfileMissing = !existingProfiles.find(profile => 
+        profile.name.toLowerCase().includes('admin') || 
+        profile.name.toLowerCase().includes('administrador')
+      );
+
       const adminProfile = await this.getAdminProfile();
       if (!adminProfile) {
         console.error('❌ [PERMISSION SYNC] Não foi possível identificar o perfil administrador');
@@ -403,18 +409,18 @@ export class PermissionSyncService {
             category: permission.category
           };
           
-          // Criar a permissão
-          await storage.createPermission(insertPermission);
+          // Criar a permissão e obter o ID gerado
+          const createdPermission = await storage.createPermission(insertPermission);
           createdCount++;
-          console.log(`✅ [PERMISSION SYNC] Criada permissão: ${permission.name}`);
+          console.log(`✅ [PERMISSION SYNC] Criada permissão: ${permission.name} (ID: ${createdPermission.id})`);
           
-          // Atribuir automaticamente ao perfil administrador
+          // Atribuir automaticamente ao perfil administrador usando o ID real
           try {
-            await storage.addPermissionToProfile(adminProfile.id, permission.id);
+            await storage.addPermissionToProfile(adminProfile.id, createdPermission.id);
             assignedCount++;
             console.log(`🔗 [PERMISSION SYNC] Permissão "${permission.name}" atribuída ao perfil "${adminProfile.name}"`);
           } catch (assignError) {
-            console.error(`❌ [PERMISSION SYNC] Erro ao atribuir permissão ${permission.id} ao perfil administrador:`, assignError);
+            console.error(`❌ [PERMISSION SYNC] Erro ao atribuir permissão ${createdPermission.id} ao perfil administrador:`, assignError);
           }
           
         } catch (error) {
@@ -434,6 +440,29 @@ export class PermissionSyncService {
       if (orphanPermissions.length > 0) {
         console.log(`⚠️ [PERMISSION SYNC] ${orphanPermissions.length} permissões órfãs detectadas:`, 
           orphanPermissions.map(p => p.name));
+      }
+
+      // 9. Se o perfil administrador foi criado agora, atribuir todas as permissões existentes
+      if (wasAdminProfileMissing && existingPermissions.length > 0) {
+        console.log(`🔧 [PERMISSION SYNC] Atribuindo todas as permissões ao novo perfil administrador...`);
+        let allPermissionsAssigned = 0;
+        
+        for (const permission of existingPermissions) {
+          try {
+            await storage.addPermissionToProfile(adminProfile.id, permission.id);
+            allPermissionsAssigned++;
+            console.log(`🔗 [PERMISSION SYNC] Permissão "${permission.name}" atribuída ao perfil administrador`);
+          } catch (assignError) {
+            // Ignorar erro se a permissão já estiver atribuída
+            const errorMessage = assignError instanceof Error ? assignError.message : String(assignError);
+            if (!errorMessage.includes('duplicate') && !errorMessage.includes('already exists')) {
+              console.error(`❌ [PERMISSION SYNC] Erro ao atribuir permissão ${permission.id}:`, assignError);
+            }
+          }
+        }
+        
+        assignedCount += allPermissionsAssigned;
+        console.log(`✅ [PERMISSION SYNC] ${allPermissionsAssigned} permissões existentes atribuídas ao novo perfil administrador`);
       }
       
       console.log(`✅ [PERMISSION SYNC] Sincronização concluída. ${createdCount} permissões criadas, ${assignedCount} atribuídas ao perfil administrador.`);

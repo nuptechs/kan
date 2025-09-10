@@ -1,71 +1,87 @@
 [
   {
-    "id": "log_1757506592515_tn37olynk",
-    "timestamp": "2025-09-10T12:16:32.515Z",
+    "id": "log_1757506716881_nuvhiwcgl",
+    "timestamp": "2025-09-10T12:18:36.881Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-boards-create ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506592143_bqcff479t",
-    "timestamp": "2025-09-10T12:16:32.143Z",
+    "id": "log_1757506716634_2d9pz90xz",
+    "timestamp": "2025-09-10T12:18:36.634Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-boards-view ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506591782_xt9d3jahe",
-    "timestamp": "2025-09-10T12:16:31.782Z",
+    "id": "log_1757506716394_tr6mvgd7m",
+    "timestamp": "2025-09-10T12:18:36.394Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-boards-list ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506589410_yrv5nga2r",
-    "timestamp": "2025-09-10T12:16:29.410Z",
+    "id": "log_1757506716156_g7po632wg",
+    "timestamp": "2025-09-10T12:18:36.156Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-delete ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506589032_zqv9a2u6s",
-    "timestamp": "2025-09-10T12:16:29.032Z",
+    "id": "log_1757506715916_ubddyl27y",
+    "timestamp": "2025-09-10T12:18:35.916Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-edit ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506588640_uulh0m3d6",
-    "timestamp": "2025-09-10T12:16:28.640Z",
+    "id": "log_1757506715670_2yzep1bij",
+    "timestamp": "2025-09-10T12:18:35.670Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-create ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506588279_0y4adfbi4",
-    "timestamp": "2025-09-10T12:16:28.279Z",
+    "id": "log_1757506713400_lmv4ywgl5",
+    "timestamp": "2025-09-10T12:18:33.400Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-view ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506585816_zzyb1gage",
-    "timestamp": "2025-09-10T12:16:25.816Z",
+    "id": "log_1757506711154_49mrjlxut",
+    "timestamp": "2025-09-10T12:18:31.154Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-list ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506579718_8zghwgv3l",
-    "timestamp": "2025-09-10T12:16:19.718Z",
+    "id": "log_1757506710913_vkm0t6hqc",
+    "timestamp": "2025-09-10T12:18:30.913Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757506710636_4horogwrh",
+    "timestamp": "2025-09-10T12:18:30.636Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757506702721_ozgmtsdzi",
+    "timestamp": "2025-09-10T12:18:22.721Z",
     "level": "info",
     "message": "Sistema de logs iniciado",
     "context": "SYSTEM",
