@@ -1,5 +1,21 @@
 [
   {
+    "id": "log_1757507102533_kkvmrkjgw",
+    "timestamp": "2025-09-10T12:25:02.533Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-notifications-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757507102293_f80gfjx2o",
+    "timestamp": "2025-09-10T12:25:02.293Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-notifications-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
     "id": "log_1757507102055_zm6ths5wj",
     "timestamp": "2025-09-10T12:25:02.055Z",
     "level": "error",
