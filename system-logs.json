@@ -1,23 +1,71 @@
 [
   {
-    "id": "log_1757506413678_6c6ecrhnd",
-    "timestamp": "2025-09-10T12:13:33.678Z",
+    "id": "log_1757506592515_tn37olynk",
+    "timestamp": "2025-09-10T12:16:32.515Z",
     "level": "error",
-    "message": "❌ [PERMISSION SYNC] Não foi possível identificar o perfil administrador",
+    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-boards-create ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506410144_tr5kw5x0f",
-    "timestamp": "2025-09-10T12:13:30.144Z",
-    "level": "warn",
-    "message": "Browserslist: browsers data (caniuse-lite) is 11 months old. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme",
-    "context": "WARNING",
+    "id": "log_1757506592143_bqcff479t",
+    "timestamp": "2025-09-10T12:16:32.143Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-boards-view ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506408376_5tzpatfmj",
-    "timestamp": "2025-09-10T12:13:28.376Z",
+    "id": "log_1757506591782_xt9d3jahe",
+    "timestamp": "2025-09-10T12:16:31.782Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-boards-list ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757506589410_yrv5nga2r",
+    "timestamp": "2025-09-10T12:16:29.410Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-delete ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757506589032_zqv9a2u6s",
+    "timestamp": "2025-09-10T12:16:29.032Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-edit ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757506588640_uulh0m3d6",
+    "timestamp": "2025-09-10T12:16:28.640Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-create ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757506588279_0y4adfbi4",
+    "timestamp": "2025-09-10T12:16:28.279Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-view ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757506585816_zzyb1gage",
+    "timestamp": "2025-09-10T12:16:25.816Z",
+    "level": "error",
+    "message": "❌ [PERMISSION SYNC] Erro ao atribuir permissão perm-tasks-list ao perfil administrador: error: insert or update on table \"profile_permissions\" violates foreign key constraint \"profile_permissions_permission_id_permissions_id_fk\"",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1757506579718_8zghwgv3l",
+    "timestamp": "2025-09-10T12:16:19.718Z",
     "level": "info",
     "message": "Sistema de logs iniciado",
     "context": "SYSTEM",

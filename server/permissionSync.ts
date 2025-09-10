@@ -315,9 +315,9 @@ export class PermissionSyncService {
   }
 
   /**
-   * Identifica o perfil administrador no sistema
+   * Garante que o perfil administrador existe no sistema
    */
-  private async getAdminProfile() {
+  private async ensureAdminProfileExists(): Promise<any> {
     try {
       const profiles = await storage.getProfiles();
       
@@ -332,17 +332,33 @@ export class PermissionSyncService {
         adminProfile = profiles.find(profile => profile.id === 'profile-admin');
       }
       
-      // Se ainda não encontrou, usar o primeiro perfil como fallback
-      if (!adminProfile && profiles.length > 0) {
-        adminProfile = profiles[0];
-        console.log(`⚠️ [PERMISSION SYNC] Perfil administrador não encontrado, usando primeiro perfil: ${adminProfile.name}`);
+      // Se ainda não encontrou, criar o perfil administrador
+      if (!adminProfile) {
+        console.log('🔧 [PERMISSION SYNC] Criando perfil administrador...');
+        
+        const newAdminProfile = {
+          name: "Administrador",
+          description: "Acesso total ao sistema",
+          color: "#ef4444",
+          isDefault: "false"
+        };
+        
+        adminProfile = await storage.createProfile(newAdminProfile);
+        console.log(`✅ [PERMISSION SYNC] Perfil administrador criado: ${adminProfile.name} (${adminProfile.id})`);
       }
       
       return adminProfile;
     } catch (error) {
-      console.error('❌ [PERMISSION SYNC] Erro ao buscar perfil administrador:', error);
+      console.error('❌ [PERMISSION SYNC] Erro ao garantir perfil administrador:', error);
       return null;
     }
+  }
+
+  /**
+   * Identifica o perfil administrador no sistema
+   */
+  private async getAdminProfile() {
+    return await this.ensureAdminProfileExists();
   }
 
   /**
