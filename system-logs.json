@@ -1,31 +1,23 @@
 [
   {
-    "id": "log_1757506310922_nbw82e901",
-    "timestamp": "2025-09-10T12:11:50.922Z",
+    "id": "log_1757506381792_nsvd83s8m",
+    "timestamp": "2025-09-10T12:13:01.792Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Não foi possível identificar o perfil administrador",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1757506310918_71gszmogi",
-    "timestamp": "2025-09-10T12:11:50.918Z",
-    "level": "error",
-    "message": "❌ [PERMISSION SYNC] Erro ao buscar perfil administrador: [object Object]",
-    "context": "ERROR",
-    "actionType": "system"
-  },
-  {
-    "id": "log_1757506308541_2alo7nf75",
-    "timestamp": "2025-09-10T12:11:48.541Z",
+    "id": "log_1757506377796_xluik6nvz",
+    "timestamp": "2025-09-10T12:12:57.796Z",
     "level": "warn",
     "message": "Browserslist: browsers data (caniuse-lite) is 11 months old. Please run:\n  npx update-browserslist-db@latest\n  Why you should do it regularly: https://github.com/browserslist/update-db#readme",
     "context": "WARNING",
     "actionType": "system"
   },
   {
-    "id": "log_1757506304824_c9871vk9m",
-    "timestamp": "2025-09-10T12:11:44.824Z",
+    "id": "log_1757506375958_17o45a2ra",
+    "timestamp": "2025-09-10T12:12:55.958Z",
     "level": "info",
     "message": "Sistema de logs iniciado",
     "context": "SYSTEM",
