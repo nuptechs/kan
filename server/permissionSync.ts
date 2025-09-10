@@ -382,7 +382,6 @@ export class PermissionSyncService {
       for (const permission of permissionsToCreate) {
         try {
           const insertPermission: InsertPermission = {
-            id: permission.id,
             name: permission.name,
             description: permission.description,
             category: permission.category
@@ -440,7 +439,7 @@ export class PermissionSyncService {
       detectedFunctions: detectedFunctions.length,
       generatedPermissions: generatedPermissions.length,
       existingPermissions: existingPermissions.length,
-      categories: [...new Set(generatedPermissions.map(p => p.category))],
+      categories: Array.from(new Set(generatedPermissions.map(p => p.category))),
       functionsDetail: detectedFunctions,
       permissionsDetail: generatedPermissions,
       existingPermissionsDetail: existingPermissions
