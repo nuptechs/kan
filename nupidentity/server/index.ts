@@ -5,6 +5,7 @@ import { config } from "./config";
 // Routes
 import authRoutes from "./routes/auth.routes";
 import validationRoutes from "./routes/validation.routes";
+import systemsRoutes from "./routes/systems.routes";
 
 const app: Express = express();
 
@@ -59,9 +60,9 @@ if (config.nodeEnv === "development") {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/validate", validationRoutes);
+app.use("/api/systems", systemsRoutes);
 
 // TODO: Adicionar mais rotas
-// app.use("/api/systems", systemsRoutes);
 // app.use("/api/users", usersRoutes);
 // app.use("/api/teams", teamsRoutes);
 // app.use("/api/profiles", profilesRoutes);

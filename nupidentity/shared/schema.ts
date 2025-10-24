@@ -82,7 +82,7 @@ export const userTeams = pgTable("user_teams", {
 });
 
 // Perfis de acesso (conjuntos de permissões)
-export const profiles = pgTable("profiles", {
+export const profiles = pgTable("identity_profiles", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   name: text("name").notNull().unique(),
   description: text("description").default(""),
@@ -95,7 +95,7 @@ export const profiles = pgTable("profiles", {
 });
 
 // Associação usuário <-> perfil
-export const userProfiles = pgTable("user_profiles", {
+export const userProfiles = pgTable("identity_user_profiles", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   profileId: varchar("profile_id").notNull().references(() => profiles.id, { onDelete: "cascade" }),
@@ -103,7 +103,7 @@ export const userProfiles = pgTable("user_profiles", {
 });
 
 // Funções atribuídas a perfis
-export const profileFunctions = pgTable("profile_functions", {
+export const profileFunctions = pgTable("identity_profile_functions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   profileId: varchar("profile_id").notNull().references(() => profiles.id, { onDelete: "cascade" }),
   functionId: varchar("function_id").notNull().references(() => functions.id, { onDelete: "cascade" }),
@@ -112,7 +112,7 @@ export const profileFunctions = pgTable("profile_functions", {
 });
 
 // Overrides de permissões por usuário (sobrescreve o que o perfil dá)
-export const userFunctionOverrides = pgTable("user_function_overrides", {
+export const userFunctionOverrides = pgTable("identity_user_function_overrides", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   functionId: varchar("function_id").notNull().references(() => functions.id, { onDelete: "cascade" }),
@@ -126,7 +126,7 @@ export const userFunctionOverrides = pgTable("user_function_overrides", {
 // =============================================================================
 
 // JWT Refresh Tokens (para rotação de tokens)
-export const refreshTokens = pgTable("refresh_tokens", {
+export const refreshTokens = pgTable("identity_refresh_tokens", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   token: text("token").notNull().unique(),
@@ -135,7 +135,7 @@ export const refreshTokens = pgTable("refresh_tokens", {
 });
 
 // Audit log de autenticações
-export const authEvents = pgTable("auth_events", {
+export const authEvents = pgTable("identity_auth_events", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   userId: varchar("user_id").references(() => users.id, { onDelete: "cascade" }),
   eventType: text("event_type").notNull(), // login, logout, login_failed, token_refresh
