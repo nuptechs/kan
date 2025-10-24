@@ -1,0 +1,459 @@
+{
+  "system": {
+    "id": "nup-kan",
+    "name": "NuP-Kan - Sistema Kanban",
+    "description": "Sistema de gerenciamento de projetos com quadros Kanban",
+    "version": "1.0.0",
+    "apiUrl": "http://localhost:5000"
+  },
+  "functions": [
+    {
+      "key": "tasks-list",
+      "name": "Listar Tasks",
+      "category": "Tasks",
+      "description": "Permitir listar tasks",
+      "endpoint": "GET /api/tasks"
+    },
+    {
+      "key": "tasks-view",
+      "name": "Visualizar Tasks",
+      "category": "Tasks",
+      "description": "Permitir visualizar tasks",
+      "endpoint": "GET /api/tasks/:id"
+    },
+    {
+      "key": "tasks-create",
+      "name": "Criar Tasks",
+      "category": "Tasks",
+      "description": "Permitir criar tasks",
+      "endpoint": "POST /api/tasks"
+    },
+    {
+      "key": "tasks-edit",
+      "name": "Editar Tasks",
+      "category": "Tasks",
+      "description": "Permitir editar tasks",
+      "endpoint": "PATCH /api/tasks/:id"
+    },
+    {
+      "key": "tasks-delete",
+      "name": "Excluir Tasks",
+      "category": "Tasks",
+      "description": "Permitir excluir tasks",
+      "endpoint": "DELETE /api/tasks/:id"
+    },
+    {
+      "key": "tasks-view-assignees",
+      "name": "Visualizar Responsáveis",
+      "category": "Tasks",
+      "description": "Permitir visualizar responsáveis de tasks",
+      "endpoint": "GET /api/tasks/:taskId/assignees"
+    },
+    {
+      "key": "tasks-assign",
+      "name": "Atribuir Tasks",
+      "category": "Tasks",
+      "description": "Permitir atribuir tasks a usuários",
+      "endpoint": "POST /api/tasks/:taskId/assignees"
+    },
+    {
+      "key": "tasks-unassign",
+      "name": "Desatribuir Tasks",
+      "category": "Tasks",
+      "description": "Permitir remover usuários de tasks",
+      "endpoint": "DELETE /api/tasks/:taskId/assignees/:userId"
+    },
+    {
+      "key": "tasks-set-assignees",
+      "name": "Definir Responsáveis",
+      "category": "Tasks",
+      "description": "Permitir definir todos os responsáveis de uma task",
+      "endpoint": "PUT /api/tasks/:taskId/assignees"
+    },
+    {
+      "key": "boards-list",
+      "name": "Listar Boards",
+      "category": "Boards",
+      "description": "Permitir listar boards",
+      "endpoint": "GET /api/boards"
+    },
+    {
+      "key": "boards-view",
+      "name": "Visualizar Boards",
+      "category": "Boards",
+      "description": "Permitir visualizar boards",
+      "endpoint": "GET /api/boards/:id"
+    },
+    {
+      "key": "boards-create",
+      "name": "Criar Boards",
+      "category": "Boards",
+      "description": "Permitir criar boards",
+      "endpoint": "POST /api/boards"
+    },
+    {
+      "key": "boards-edit",
+      "name": "Editar Boards",
+      "category": "Boards",
+      "description": "Permitir editar boards",
+      "endpoint": "PATCH /api/boards/:id"
+    },
+    {
+      "key": "boards-delete",
+      "name": "Excluir Boards",
+      "category": "Boards",
+      "description": "Permitir excluir boards",
+      "endpoint": "DELETE /api/boards/:id"
+    },
+    {
+      "key": "boards-view-tasks",
+      "name": "Visualizar Tasks do Board",
+      "category": "Boards",
+      "description": "Permitir visualizar tasks de um board específico",
+      "endpoint": "GET /api/boards/:boardId/tasks"
+    },
+    {
+      "key": "boards-view-columns",
+      "name": "Visualizar Colunas do Board",
+      "category": "Boards",
+      "description": "Permitir visualizar colunas de um board",
+      "endpoint": "GET /api/boards/:boardId/columns"
+    },
+    {
+      "key": "boards-view-members",
+      "name": "Visualizar Membros do Board",
+      "category": "Boards",
+      "description": "Permitir visualizar membros de um board",
+      "endpoint": "GET /api/boards/:boardId/member-count"
+    },
+    {
+      "key": "columns-list",
+      "name": "Listar Columns",
+      "category": "Columns",
+      "description": "Permitir listar columns",
+      "endpoint": "GET /api/columns"
+    },
+    {
+      "key": "columns-view",
+      "name": "Visualizar Columns",
+      "category": "Columns",
+      "description": "Permitir visualizar columns",
+      "endpoint": "GET /api/columns/:id"
+    },
+    {
+      "key": "columns-create",
+      "name": "Criar Columns",
+      "category": "Columns",
+      "description": "Permitir criar columns",
+      "endpoint": "POST /api/columns"
+    },
+    {
+      "key": "columns-edit",
+      "name": "Editar Columns",
+      "category": "Columns",
+      "description": "Permitir editar columns",
+      "endpoint": "PUT /api/columns/:id"
+    },
+    {
+      "key": "columns-delete",
+      "name": "Excluir Columns",
+      "category": "Columns",
+      "description": "Permitir excluir columns",
+      "endpoint": "DELETE /api/columns/:id"
+    },
+    {
+      "key": "columns-reorder",
+      "name": "Reordenar Columns",
+      "category": "Columns",
+      "description": "Permitir reordenar columns",
+      "endpoint": "POST /api/columns/reorder"
+    },
+    {
+      "key": "teams-list",
+      "name": "Listar Teams",
+      "category": "Teams",
+      "description": "Permitir listar teams",
+      "endpoint": "GET /api/teams"
+    },
+    {
+      "key": "teams-view",
+      "name": "Visualizar Teams",
+      "category": "Teams",
+      "description": "Permitir visualizar teams",
+      "endpoint": "GET /api/teams/:id"
+    },
+    {
+      "key": "teams-create",
+      "name": "Criar Teams",
+      "category": "Teams",
+      "description": "Permitir criar teams",
+      "endpoint": "POST /api/teams"
+    },
+    {
+      "key": "teams-edit",
+      "name": "Editar Teams",
+      "category": "Teams",
+      "description": "Permitir editar teams",
+      "endpoint": "PATCH /api/teams/:id"
+    },
+    {
+      "key": "teams-delete",
+      "name": "Excluir Teams",
+      "category": "Teams",
+      "description": "Permitir excluir teams",
+      "endpoint": "DELETE /api/teams/:id"
+    },
+    {
+      "key": "teams-view-members",
+      "name": "Visualizar Membros do Team",
+      "category": "Teams",
+      "description": "Permitir visualizar membros de um team",
+      "endpoint": "GET /api/teams/:teamId/users"
+    },
+    {
+      "key": "users-list",
+      "name": "Listar Users",
+      "category": "Users",
+      "description": "Permitir listar users",
+      "endpoint": "GET /api/users"
+    },
+    {
+      "key": "users-view",
+      "name": "Visualizar Users",
+      "category": "Users",
+      "description": "Permitir visualizar users",
+      "endpoint": "GET /api/users/:id"
+    },
+    {
+      "key": "users-create",
+      "name": "Criar Users",
+      "category": "Users",
+      "description": "Permitir criar users",
+      "endpoint": "POST /api/users"
+    },
+    {
+      "key": "users-edit",
+      "name": "Editar Users",
+      "category": "Users",
+      "description": "Permitir editar users",
+      "endpoint": "PATCH /api/users/:id"
+    },
+    {
+      "key": "users-delete",
+      "name": "Excluir Users",
+      "category": "Users",
+      "description": "Permitir excluir users",
+      "endpoint": "DELETE /api/users/:id"
+    },
+    {
+      "key": "users-view-teams",
+      "name": "Visualizar Times do Usuário",
+      "category": "Users",
+      "description": "Permitir visualizar times de um usuário",
+      "endpoint": "GET /api/users/:userId/teams"
+    },
+    {
+      "key": "users-view-permissions",
+      "name": "Visualizar Permissões do Usuário",
+      "category": "Users",
+      "description": "Permitir visualizar permissões de um usuário",
+      "endpoint": "GET /api/users/:userId/permissions"
+    },
+    {
+      "key": "users-add-to-team",
+      "name": "Adicionar Usuário ao Time",
+      "category": "Users",
+      "description": "Permitir adicionar usuário a um time",
+      "endpoint": "POST /api/users/:userId/teams/:teamId"
+    },
+    {
+      "key": "users-remove-from-team",
+      "name": "Remover Usuário do Time",
+      "category": "Users",
+      "description": "Permitir remover usuário de um time",
+      "endpoint": "DELETE /api/users/:userId/teams/:teamId"
+    },
+    {
+      "key": "profiles-list",
+      "name": "Listar Profiles",
+      "category": "Profiles",
+      "description": "Permitir listar profiles",
+      "endpoint": "GET /api/profiles"
+    },
+    {
+      "key": "profiles-view",
+      "name": "Visualizar Profiles",
+      "category": "Profiles",
+      "description": "Permitir visualizar profiles",
+      "endpoint": "GET /api/profiles/:id"
+    },
+    {
+      "key": "profiles-create",
+      "name": "Criar Profiles",
+      "category": "Profiles",
+      "description": "Permitir criar profiles",
+      "endpoint": "POST /api/profiles"
+    },
+    {
+      "key": "profiles-edit",
+      "name": "Editar Profiles",
+      "category": "Profiles",
+      "description": "Permitir editar profiles",
+      "endpoint": "PATCH /api/profiles/:id"
+    },
+    {
+      "key": "profiles-delete",
+      "name": "Excluir Profiles",
+      "category": "Profiles",
+      "description": "Permitir excluir profiles",
+      "endpoint": "DELETE /api/profiles/:id"
+    },
+    {
+      "key": "profiles-view-permissions",
+      "name": "Visualizar Permissões do Perfil",
+      "category": "Profiles",
+      "description": "Permitir visualizar permissões de um perfil",
+      "endpoint": "GET /api/profiles/:profileId/permissions"
+    },
+    {
+      "key": "profiles-add-permission",
+      "name": "Adicionar Permissão ao Perfil",
+      "category": "Profiles",
+      "description": "Permitir adicionar permissão a um perfil",
+      "endpoint": "POST /api/profiles/:profileId/permissions"
+    },
+    {
+      "key": "profiles-remove-permission",
+      "name": "Remover Permissão do Perfil",
+      "category": "Profiles",
+      "description": "Permitir remover permissão de um perfil",
+      "endpoint": "DELETE /api/profiles/:profileId/permissions/:permissionId"
+    },
+    {
+      "key": "permissions-list",
+      "name": "Listar Permissions",
+      "category": "Permissions",
+      "description": "Permitir listar permissions",
+      "endpoint": "GET /api/permissions"
+    },
+    {
+      "key": "permissions-create",
+      "name": "Criar Permissions",
+      "category": "Permissions",
+      "description": "Permitir criar permissions",
+      "endpoint": "POST /api/permissions"
+    },
+    {
+      "key": "permissions-edit",
+      "name": "Editar Permissions",
+      "category": "Permissions",
+      "description": "Permitir editar permissions",
+      "endpoint": "PATCH /api/permissions/:id"
+    },
+    {
+      "key": "permissions-delete",
+      "name": "Excluir Permissions",
+      "category": "Permissions",
+      "description": "Permitir excluir permissions",
+      "endpoint": "DELETE /api/permissions/:id"
+    },
+    {
+      "key": "analytics-view",
+      "name": "Visualizar Analytics",
+      "category": "Analytics",
+      "description": "Permitir visualizar analytics",
+      "endpoint": "GET /api/analytics"
+    },
+    {
+      "key": "tags-list",
+      "name": "Listar Tags",
+      "category": "Tags",
+      "description": "Permitir listar tags",
+      "endpoint": "GET /api/tags"
+    },
+    {
+      "key": "tags-view",
+      "name": "Visualizar Tags",
+      "category": "Tags",
+      "description": "Permitir visualizar tags",
+      "endpoint": "GET /api/tags/:id"
+    },
+    {
+      "key": "tags-create",
+      "name": "Criar Tags",
+      "category": "Tags",
+      "description": "Permitir criar tags",
+      "endpoint": "POST /api/tags"
+    },
+    {
+      "key": "tags-edit",
+      "name": "Editar Tags",
+      "category": "Tags",
+      "description": "Permitir editar tags",
+      "endpoint": "PATCH /api/tags/:id"
+    },
+    {
+      "key": "tags-delete",
+      "name": "Excluir Tags",
+      "category": "Tags",
+      "description": "Permitir excluir tags",
+      "endpoint": "DELETE /api/tags/:id"
+    },
+    {
+      "key": "custom-fields-list",
+      "name": "Listar Custom-Fields",
+      "category": "Custom-Fields",
+      "description": "Permitir listar custom-fields",
+      "endpoint": "GET /api/custom-fields"
+    },
+    {
+      "key": "custom-fields-create",
+      "name": "Criar Custom-Fields",
+      "category": "Custom-Fields",
+      "description": "Permitir criar custom-fields",
+      "endpoint": "POST /api/custom-fields"
+    },
+    {
+      "key": "custom-fields-edit",
+      "name": "Editar Custom-Fields",
+      "category": "Custom-Fields",
+      "description": "Permitir editar custom-fields",
+      "endpoint": "PATCH /api/custom-fields/:id"
+    },
+    {
+      "key": "custom-fields-delete",
+      "name": "Excluir Custom-Fields",
+      "category": "Custom-Fields",
+      "description": "Permitir excluir custom-fields",
+      "endpoint": "DELETE /api/custom-fields/:id"
+    },
+    {
+      "key": "export-export",
+      "name": "Exportar Export",
+      "category": "Export",
+      "description": "Permitir exportar export",
+      "endpoint": "POST /api/export"
+    },
+    {
+      "key": "export-view-history",
+      "name": "Visualizar Histórico de Exportações",
+      "category": "Export",
+      "description": "Permitir visualizar histórico de exportações",
+      "endpoint": "GET /api/export/history"
+    },
+    {
+      "key": "system-view-logs",
+      "name": "Visualizar Logs do Sistema",
+      "category": "System",
+      "description": "Permitir visualizar logs do sistema",
+      "endpoint": "GET /api/system/logs"
+    },
+    {
+      "key": "system-clear-logs",
+      "name": "Limpar Logs do Sistema",
+      "category": "System",
+      "description": "Permitir limpar logs do sistema",
+      "endpoint": "DELETE /api/system/logs"
+    }
+  ]
+}
