@@ -1,23 +1,42 @@
-import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useLocation } from "wouter";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { login, register } from "@/lib/queryClient";
+import { 
+  login, 
+  register, 
+  loginSchema, 
+  registerSchema,
+  type LoginCredentials,
+  type RegisterData 
+} from "@/lib/queryClient";
 
 export default function LoginPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [registerName, setRegisterName] = useState("");
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
+  const loginForm = useForm<LoginCredentials>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const registerForm = useForm<RegisterData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
 
   const loginMutation = useMutation({
     mutationFn: login,
@@ -26,8 +45,7 @@ export default function LoginPage() {
         title: "Login realizado!",
         description: `Bem-vindo, ${data.user.name}!`,
       });
-      // TODO: Redirect to dashboard
-      console.log("Login successful:", data);
+      setLocation("/dashboard");
     },
     onError: (error: Error) => {
       toast({
@@ -45,8 +63,7 @@ export default function LoginPage() {
         title: "Conta criada com sucesso!",
         description: `Bem-vindo, ${data.user.name}!`,
       });
-      // TODO: Redirect to dashboard
-      console.log("Register successful:", data);
+      setLocation("/dashboard");
     },
     onError: (error: Error) => {
       toast({
@@ -57,18 +74,12 @@ export default function LoginPage() {
     },
   });
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    loginMutation.mutate({ email: loginEmail, password: loginPassword });
+  const handleLogin = (data: LoginCredentials) => {
+    loginMutation.mutate(data);
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    registerMutation.mutate({ 
-      name: registerName, 
-      email: registerEmail, 
-      password: registerPassword 
-    });
+  const handleRegister = (data: RegisterData) => {
+    registerMutation.mutate(data);
   };
 
   return (
@@ -93,89 +104,123 @@ export default function LoginPage() {
             </TabsList>
             
             <TabsContent value="login">
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="login-email">Email</Label>
-                  <Input
-                    id="login-email"
-                    type="email"
-                    placeholder="seu@email.com"
-                    value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                    required
-                    data-testid="input-login-email"
+              <Form {...loginForm}>
+                <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-4">
+                  <FormField
+                    control={loginForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="seu@email.com"
+                            data-testid="input-login-email"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="login-password">Senha</Label>
-                  <Input
-                    id="login-password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                    required
-                    data-testid="input-login-password"
+                  <FormField
+                    control={loginForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Senha</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="••••••••"
+                            data-testid="input-login-password"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <Button 
-                  type="submit" 
-                  className="w-full" 
-                  data-testid="button-login-submit"
-                  disabled={loginMutation.isPending}
-                >
-                  {loginMutation.isPending ? "Entrando..." : "Entrar"}
-                </Button>
-              </form>
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    data-testid="button-login-submit"
+                    disabled={loginMutation.isPending}
+                  >
+                    {loginMutation.isPending ? "Entrando..." : "Entrar"}
+                  </Button>
+                </form>
+              </Form>
             </TabsContent>
             
             <TabsContent value="register">
-              <form onSubmit={handleRegister} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="register-name">Nome</Label>
-                  <Input
-                    id="register-name"
-                    type="text"
-                    placeholder="Seu nome completo"
-                    value={registerName}
-                    onChange={(e) => setRegisterName(e.target.value)}
-                    required
-                    data-testid="input-register-name"
+              <Form {...registerForm}>
+                <form onSubmit={registerForm.handleSubmit(handleRegister)} className="space-y-4">
+                  <FormField
+                    control={registerForm.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nome</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="Seu nome completo"
+                            data-testid="input-register-name"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="register-email">Email</Label>
-                  <Input
-                    id="register-email"
-                    type="email"
-                    placeholder="seu@email.com"
-                    value={registerEmail}
-                    onChange={(e) => setRegisterEmail(e.target.value)}
-                    required
-                    data-testid="input-register-email"
+                  <FormField
+                    control={registerForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="seu@email.com"
+                            data-testid="input-register-email"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="register-password">Senha</Label>
-                  <Input
-                    id="register-password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={registerPassword}
-                    onChange={(e) => setRegisterPassword(e.target.value)}
-                    required
-                    data-testid="input-register-password"
+                  <FormField
+                    control={registerForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Senha</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="••••••••"
+                            data-testid="input-register-password"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <Button 
-                  type="submit" 
-                  className="w-full" 
-                  data-testid="button-register-submit"
-                  disabled={registerMutation.isPending}
-                >
-                  {registerMutation.isPending ? "Criando conta..." : "Criar conta"}
-                </Button>
-              </form>
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    data-testid="button-register-submit"
+                    disabled={registerMutation.isPending}
+                  >
+                    {registerMutation.isPending ? "Criando conta..." : "Criar conta"}
+                  </Button>
+                </form>
+              </Form>
             </TabsContent>
           </Tabs>
         </CardContent>

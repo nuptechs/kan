@@ -38,6 +38,19 @@ Preferred communication style: Simple, everyday language.
 -   **Validation (`/api`)**: Validate JWT tokens, retrieve user-specific permissions for all systems or a specific system.
 -   **Systems (`/api/systems`)**: List registered systems, synchronize functions from `permissions.json`.
 
+### Frontend Architecture
+-   **Framework**: React with TypeScript and Vite (integrated with Express via custom middleware).
+-   **UI/UX**: `shadcn/ui` component library with Radix UI primitives, styled with Tailwind CSS matching NuP-Kan design system.
+-   **State Management**: TanStack Query for server state, React Hook Form with Zod for form validation.
+-   **Routing**: Wouter for client-side routing.
+-   **Development**: Vite dev server integrated via custom `server/vite.ts` middleware with HMR support.
+
+### Frontend Features
+-   **Login Page**: Email/password authentication with real-time validation and error handling.
+-   **Registration Flow**: User signup with validation and automatic JWT token handling.
+-   **Auto-login Check**: Automatically verifies if user has valid session on page load.
+-   **Type-Safe API**: queryClient configured with automatic token attachment and error handling.
+
 ### Single Sign-On (SSO) Flow
 The system supports a standard SSO flow where NuP-Kan redirects to NuPIdentity for user authentication, receiving a JWT token in return. Subsequent API calls from NuP-Kan to NuPIdentity validate the token and fetch user permissions.
 

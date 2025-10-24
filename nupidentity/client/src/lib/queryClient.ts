@@ -1,4 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
+import { z } from "zod";
 
 // Create query client for authentication management
 export const queryClient = new QueryClient({
@@ -43,17 +44,21 @@ export async function apiRequest(
   return response.json();
 }
 
-// Auth types
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}
+// Zod validation schemas
+export const loginSchema = z.object({
+  email: z.string().email("Email inválido"),
+  password: z.string().min(6, "Senha deve ter no mínimo 6 caracteres"),
+});
 
-export interface RegisterData {
-  name: string;
-  email: string;
-  password: string;
-}
+export const registerSchema = z.object({
+  name: z.string().min(2, "Nome deve ter no mínimo 2 caracteres"),
+  email: z.string().email("Email inválido"),
+  password: z.string().min(6, "Senha deve ter no mínimo 6 caracteres"),
+});
+
+// Auth types
+export type LoginCredentials = z.infer<typeof loginSchema>;
+export type RegisterData = z.infer<typeof registerSchema>;
 
 export interface AuthResponse {
   access_token: string;
