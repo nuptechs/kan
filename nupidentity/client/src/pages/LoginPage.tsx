@@ -1,25 +1,74 @@
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
+import { login, register } from "@/lib/queryClient";
 
 export default function LoginPage() {
+  const [, setLocation] = useLocation();
+  const { toast } = useToast();
+  
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [registerName, setRegisterName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
 
+  const loginMutation = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      toast({
+        title: "Login realizado!",
+        description: `Bem-vindo, ${data.user.name}!`,
+      });
+      // TODO: Redirect to dashboard
+      console.log("Login successful:", data);
+    },
+    onError: (error: Error) => {
+      toast({
+        variant: "destructive",
+        title: "Erro ao fazer login",
+        description: error.message || "Verifique suas credenciais e tente novamente",
+      });
+    },
+  });
+
+  const registerMutation = useMutation({
+    mutationFn: register,
+    onSuccess: (data) => {
+      toast({
+        title: "Conta criada com sucesso!",
+        description: `Bem-vindo, ${data.user.name}!`,
+      });
+      // TODO: Redirect to dashboard
+      console.log("Register successful:", data);
+    },
+    onError: (error: Error) => {
+      toast({
+        variant: "destructive",
+        title: "Erro ao criar conta",
+        description: error.message || "Tente novamente mais tarde",
+      });
+    },
+  });
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", { loginEmail, loginPassword });
+    loginMutation.mutate({ email: loginEmail, password: loginPassword });
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Register:", { registerName, registerEmail, registerPassword });
+    registerMutation.mutate({ 
+      name: registerName, 
+      email: registerEmail, 
+      password: registerPassword 
+    });
   };
 
   return (
@@ -69,8 +118,13 @@ export default function LoginPage() {
                     data-testid="input-login-password"
                   />
                 </div>
-                <Button type="submit" className="w-full" data-testid="button-login-submit">
-                  Entrar
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  data-testid="button-login-submit"
+                  disabled={loginMutation.isPending}
+                >
+                  {loginMutation.isPending ? "Entrando..." : "Entrar"}
                 </Button>
               </form>
             </TabsContent>
@@ -113,8 +167,13 @@ export default function LoginPage() {
                     data-testid="input-register-password"
                   />
                 </div>
-                <Button type="submit" className="w-full" data-testid="button-register-submit">
-                  Criar conta
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  data-testid="button-register-submit"
+                  disabled={registerMutation.isPending}
+                >
+                  {registerMutation.isPending ? "Criando conta..." : "Criar conta"}
                 </Button>
               </form>
             </TabsContent>
