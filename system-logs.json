@@ -1,5 +1,19 @@
 [
   {
+    "id": "action_1761330433609_wxl325abl",
+    "timestamp": "2025-10-24T18:27:13.609Z",
+    "level": "info",
+    "message": "Usuário YFaf executou: Criar usuário \"Teste\" (teste@sadkaskdm.com)",
+    "context": "USER_ACTION",
+    "actionType": "user_action",
+    "userId": "e84b8e4a-c0b7-414f-9228-35b068af12b9",
+    "userName": "Usuário YFaf",
+    "action": "Criar usuário \"Teste\" (teste@sadkaskdm.com)",
+    "status": "success",
+    "errorDetails": null,
+    "duration": 63
+  },
+  {
     "id": "log_1761330060148_8u28epviq",
     "timestamp": "2025-10-24T18:21:00.148Z",
     "level": "error",
