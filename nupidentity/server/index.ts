@@ -1,6 +1,8 @@
 import express, { type Express, type Request, type Response } from "express";
 import session from "express-session";
+import { createServer } from "http";
 import { config } from "./config";
+import { setupVite, serveStatic } from "./vite";
 
 // Routes
 import authRoutes from "./routes/auth.routes";
@@ -8,6 +10,7 @@ import validationRoutes from "./routes/validation.routes";
 import systemsRoutes from "./routes/systems.routes";
 
 const app: Express = express();
+const server = createServer(app);
 
 // =============================================================================
 // MIDDLEWARE
@@ -77,40 +80,17 @@ app.get("/api/health", (req: Request, res: Response) => {
   });
 });
 
-// Root
-app.get("/", (req: Request, res: Response) => {
-  res.json({
-    service: "NuPIdentity - Central de Identidade NuPtechs",
-    version: "1.0.0",
-    endpoints: {
-      auth: "/api/auth",
-      validation: "/api/validate",
-      health: "/api/health",
-    },
-  });
-});
-
 // =============================================================================
-// ERROR HANDLING
+// FRONTEND (Vite Dev Server or Static Files)
 // =============================================================================
 
-// 404
-app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    error: "Not Found",
-    message: `Rota ${req.method} ${req.path} não encontrada`,
-  });
-});
-
-// Error handler
-app.use((err: any, req: Request, res: Response, next: any) => {
-  console.error("Erro não tratado:", err);
-  
-  res.status(err.status || 500).json({
-    error: err.message || "Erro interno do servidor",
-    ...(config.nodeEnv === "development" && { stack: err.stack }),
-  });
-});
+if (config.nodeEnv === "development") {
+  // Development: Setup Vite dev server
+  setupVite(app, server);
+} else {
+  // Production: Serve static files
+  serveStatic(app);
+}
 
 // =============================================================================
 // START SERVER
@@ -118,7 +98,7 @@ app.use((err: any, req: Request, res: Response, next: any) => {
 
 const PORT = config.port;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║
@@ -126,8 +106,9 @@ app.listen(PORT, () => {
 ║                                                           ║
 ║   Servidor rodando em: http://localhost:${PORT}           ║
 ║   Ambiente: ${config.nodeEnv.padEnd(43)}║
+║   Frontend: ${config.nodeEnv === "development" ? "Vite Dev Server" : "Static Build".padEnd(38)}║
 ║                                                           ║
-║   Endpoints disponíveis:                                  ║
+║   Endpoints da API:                                       ║
 ║   • POST   /api/auth/register                             ║
 ║   • POST   /api/auth/login                                ║
 ║   • POST   /api/auth/refresh                              ║
