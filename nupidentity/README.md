@@ -1,142 +1,105 @@
-# NuPIdentity 🔐
+# 🔐 NuPIdentity - Central de Identidade NuPtechs
 
-**Central de Identidade e Autenticação da NuPtechs**
+Plataforma centralizada de identidade e gerenciamento de acesso para todos os sistemas NuPtechs. Fornece Single Sign-On (SSO), autenticação centralizada e gerenciamento granular de permissões.
 
-Sistema centralizado de autenticação e gerenciamento de permissões para todos os sistemas da NuPtechs (NuP-Kan, NuP-CRM, NuP-ERP, etc).
+## 🚀 Quick Start
 
-## 🎯 Funcionalidades
-
-### Autenticação Múltipla
-- ✅ **Email + Senha** - Autenticação tradicional com bcrypt
-- 🔄 **Replit Auth** - Login social com Google, GitHub, Apple
-- 🔐 **WebAuthn/Passkeys** - Autenticação biométrica (impressão digital, Face ID)
-
-### Gerenciamento de Identidade
-- 👤 **Usuários** - CRUD completo de usuários
-- 👥 **Times** - Organização em times (N:N com usuários)
-- 🎭 **Perfis de Acesso** - Conjuntos de permissões reutilizáveis
-- ⚙️ **Sistemas Integrados** - Registro de sistemas clientes (NuP-Kan, etc)
-- 🔑 **Funções/Permissões** - Sincronização via permissions.json
-
-### Single Sign-On (SSO)
-- 🎫 **JWT Tokens** - Access tokens (1h) + Refresh tokens (7 dias)
-- 🔍 **Validação Centralizada** - Sistemas clientes validam tokens via API
-- 📊 **Permissões Granulares** - Controle fino de acesso por função
-
-## 🏗️ Arquitetura
-
-```
-NuPIdentity (Servidor Central OAuth2/OIDC)
-    ↓ JWT Token
-    ├─→ NuP-Kan (Sistema Cliente)
-    ├─→ NuP-CRM (Sistema Cliente)
-    └─→ NuP-ERP (Sistema Cliente)
-```
-
-## 📦 Stack Tecnológica
-
-- **Backend**: Express.js + TypeScript
-- **Frontend**: React + Vite + shadcn/ui
-- **Database**: PostgreSQL (Neon) + Drizzle ORM
-- **Auth**: JWT + bcrypt + @simplewebauthn
-- **OAuth**: openid-client (Replit Auth)
-
-## 🚀 Desenvolvimento
-
+### 1. Instalar Dependências
 ```bash
-# Instalar dependências
 npm install
+```
 
-# Push schema para banco de dados
+### 2. Configurar Banco de Dados
+```bash
+# Sincronizar schema
 npm run db:push
 
-# Iniciar servidor de desenvolvimento
+# Popular dados iniciais
+npm run db:seed
+```
+
+### 3. Iniciar Servidor
+```bash
 npm run dev
 ```
 
-Servidor roda em: `http://localhost:5001`
+Acesse: http://localhost:3001
 
-## 📁 Estrutura
+## 🔑 Credenciais Padrão
 
+Após executar `npm run db:seed`:
+
+- **Email**: yfaf01@gmail.com
+- **Senha**: 123456
+- **Perfil**: Administrador Global
+
+## 📋 Variáveis de Ambiente
+
+Copie `.env.example` para `.env` e configure:
+
+- **DATABASE_URL**: Connection string PostgreSQL
+- **JWT_SECRET**: Chave para assinar tokens JWT
+- **SESSION_SECRET**: Chave para sessões Express
+
+## 🏗️ Arquitetura
+
+### Backend
+- **Framework**: Express.js + TypeScript
+- **Database**: PostgreSQL (via Neon)
+- **ORM**: Drizzle ORM
+- **Auth**: JWT + Refresh Tokens
+
+### Frontend
+- **Framework**: React + TypeScript
+- **Build**: Vite
+- **UI**: shadcn/ui + Radix UI
+- **Styling**: Tailwind CSS
+- **Forms**: React Hook Form + Zod
+- **State**: TanStack Query
+
+## 📦 Scripts Disponíveis
+
+```bash
+npm run dev          # Desenvolvimento
+npm run build        # Build produção
+npm run db:push      # Sync database schema
+npm run db:seed      # Popular banco com dados
 ```
-nupidentity/
-├── client/                 # Frontend React
-│   ├── src/
-│   │   ├── pages/         # Páginas (Login, Dashboard Admin)
-│   │   ├── components/    # Componentes UI (shadcn)
-│   │   └── lib/           # Utilitários
-│   └── index.html
-├── server/                # Backend Express
-│   ├── index.ts           # Servidor principal
-│   ├── db.ts              # Conexão banco
-│   ├── config.ts          # Configurações
-│   ├── auth/              # Lógica de autenticação
-│   │   ├── jwt.ts         # Geração/validação JWT
-│   │   └── password.ts    # bcrypt hashing
-│   ├── middleware/        # Middlewares Express
-│   │   └── auth.ts        # requireAuth, optionalAuth
-│   └── routes/            # Rotas da API
-│       ├── auth.routes.ts       # POST /login, /register, /refresh
-│       └── validation.routes.ts # GET /users/:id/permissions
-├── shared/
-│   └── schema.ts          # Schema Drizzle (compartilhado)
-└── package.json
-```
 
-## 🔗 API Endpoints
+## 📚 Documentação
+
+Consulte `MIGRATION_GUIDE.md` para instruções detalhadas de setup e migração.
+
+## 🔒 Segurança
+
+- Autenticação JWT com refresh tokens
+- Senhas hash com bcrypt
+- CORS configurado
+- Rate limiting (a implementar)
+- WebAuthn suporte (a implementar)
+
+## 🌐 API Endpoints
 
 ### Autenticação
-- `POST /api/auth/register` - Registrar novo usuário
-- `POST /api/auth/login` - Login (email + senha)
-- `POST /api/auth/refresh` - Renovar access token
-- `POST /api/auth/logout` - Logout (invalida refresh token)
-- `GET /api/auth/me` - Usuário autenticado atual
+- `POST /api/auth/register` - Registrar usuário
+- `POST /api/auth/login` - Login
+- `POST /api/auth/refresh` - Refresh token
+- `POST /api/auth/logout` - Logout
+- `GET /api/auth/me` - Dados do usuário atual
 
-### Validação (para sistemas clientes)
-- `POST /api/validate/token` - Validar JWT token
-- `GET /api/users/:userId/permissions` - Todas permissões do usuário
-- `GET /api/users/:userId/systems/:systemId/permissions` - Permissões para sistema específico
-- `POST /api/users/:userId/systems/:systemId/check` - Verificar função específica
+### Validação
+- `POST /api/validate/token` - Validar JWT
+- `GET /api/users/:id/permissions` - Permissões do usuário
+- `GET /api/users/:id/systems/:systemId/permissions` - Permissões por sistema
 
-## 🔐 Variáveis de Ambiente
+### Sistemas
+- `GET /api/systems` - Listar sistemas registrados
+- `POST /api/systems/:id/sync` - Sincronizar permissões
 
-```env
-# Database
-DATABASE_URL=postgresql://...
+## 🤝 Contribuindo
 
-# JWT
-JWT_SECRET=your-secret-key
-JWT_EXPIRES_IN=1h
-
-# OAuth (Replit Auth)
-REPLIT_CLIENT_ID=your-client-id
-REPLIT_CLIENT_SECRET=your-client-secret
-
-# WebAuthn
-RP_ID=localhost
-ORIGIN=http://localhost:5001
-
-# Session
-SESSION_SECRET=your-session-secret
-
-# Features
-ENABLE_REGISTRATION=true
-ENABLE_SOCIAL_LOGIN=true
-ENABLE_PASSKEYS=true
-
-# CORS
-CORS_ORIGINS=http://localhost:5000,http://localhost:5001
-```
-
-## 📝 Próximos Passos
-
-- [ ] Implementar Replit Auth (Google, GitHub, Apple)
-- [ ] Implementar WebAuthn/Passkeys
-- [ ] Criar UI admin dashboard
-- [ ] Implementar APIs de gerenciamento (CRUD sistemas, usuários, perfis)
-- [ ] Integrar com NuP-Kan
-- [ ] Migrar usuários existentes
+Este é um projeto interno NuPtechs para gerenciamento centralizado de identidade.
 
 ## 📄 Licença
 
-MIT
+Propriedade de NuPtechs © 2025
