@@ -2,17 +2,19 @@
  * 🔐 AUTH MICROSERVICE - Autenticação Ultra-Rápida
  * 
  * RESPONSABILIDADES:
- * - Autenticação e autorização de usuários
- * - Gerenciamento de sessões
+ * - Autenticação via NuPIdentity (SSO)
+ * - Validação de tokens JWT
  * - Verificação de permissões em tempo real
  * - Cache inteligente de dados de autenticação
  * 
- * PERFORMANCE TARGET: < 10ms para verificações de auth
+ * INTEGRAÇÃO: Conecta ao NuPIdentity para autenticação centralizada
+ * PERFORMANCE TARGET: < 10ms para verificações de auth (com cache)
  */
 
 import { QueryHandlers } from '../cqrs/queries';
 import { cache, TTL } from '../cache';
 import { Request, Response, NextFunction } from 'express';
+import { NuPIdentityClient } from '../integrations/nupidentity';
 
 export interface AuthContext {
   userId: string;
@@ -39,12 +41,88 @@ export class AuthService {
   
   static async verifyAuth(req: Request): Promise<AuthContext | null> {
     try {
-      const userId = req.session?.user?.id || req.session?.userId || req.headers['x-user-id'] as string;
+      // PRIORIDADE 1: Token JWT do NuPIdentity (autenticação SSO)
+      const authHeader = req.headers['authorization'];
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.substring(7);
+        return await this.verifyNuPIdentityToken(token);
+      }
+
+      // PRIORIDADE 2: Sessão local (retrocompatibilidade)
+      const userId = req.session?.user?.id || req.session?.userId;
+      if (userId) {
+        return await this.verifyLocalSession(req, userId);
+      }
+
+      return null;
+
+    } catch (error) {
+      console.error('AUTH-SERVICE: Erro verificando autenticação:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Verifica autenticação via token JWT do NuPIdentity
+   */
+  private static async verifyNuPIdentityToken(token: string): Promise<AuthContext | null> {
+    try {
+      const cacheKey = `auth_nupid:${token.substring(0, 20)}`;
+      const cached = await cache.get<AuthContext>(cacheKey);
       
-      if (!userId) {
+      if (cached) {
+        return cached;
+      }
+
+      // Validar token junto ao NuPIdentity
+      const validation = await NuPIdentityClient.validateToken(token);
+      
+      if (!validation.valid || !validation.user) {
         return null;
       }
 
+      // Buscar permissões completas do usuário
+      const { user, permissions } = await NuPIdentityClient.getUserData(
+        validation.user.id,
+        token
+      );
+
+      if (!user) {
+        return null;
+      }
+
+      // Extrair categorias únicas de permissões
+      const permissionCategories = [...new Set(permissions.map(p => p.category))];
+
+      const authContext: AuthContext = {
+        userId: user.id,
+        userName: user.name,
+        userEmail: user.email,
+        permissions: permissions.map(p => p.name),
+        permissionCategories,
+        profileId: user.profileId || '',
+        profileName: user.profileName || 'Usuário',
+        teams: [], // Teams virão do NuPIdentity no futuro
+        sessionId: `nupid-${user.id}`,
+        isAuthenticated: true,
+        lastActivity: new Date(),
+      };
+
+      // Cache por 5 minutos
+      await cache.set(cacheKey, authContext, TTL.MEDIUM);
+      return authContext;
+
+    } catch (error) {
+      console.error('AUTH-SERVICE: Erro verificando token NuPIdentity:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Verifica autenticação via sessão local (retrocompatibilidade)
+   */
+  private static async verifyLocalSession(req: Request, userId: string): Promise<AuthContext | null> {
+    try {
       const sessionId = (req as any).sessionID || req.session?.id || 'no-session';
       const cacheKey = `auth_context:${userId}:${sessionId}`;
       const cached = await cache.get<AuthContext>(cacheKey);
@@ -77,7 +155,7 @@ export class AuthService {
       return authContext;
 
     } catch (error) {
-      console.error('AUTH-SERVICE: Erro verificando autenticação:', error);
+      console.error('AUTH-SERVICE: Erro verificando sessão local:', error);
       return null;
     }
   }
