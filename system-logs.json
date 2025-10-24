@@ -1,423 +1,423 @@
 [
   {
-    "id": "log_1761333882334_uoeiq8y74",
-    "timestamp": "2025-10-24T19:24:42.334Z",
+    "id": "log_1761343359308_sww047b4d",
+    "timestamp": "2025-10-24T22:02:39.308Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-notifications-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333882091_n2cr5y9od",
-    "timestamp": "2025-10-24T19:24:42.091Z",
+    "id": "log_1761343359063_77y1byeto",
+    "timestamp": "2025-10-24T22:02:39.063Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-notifications-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333881851_jj0f0cdn7",
-    "timestamp": "2025-10-24T19:24:41.851Z",
+    "id": "log_1761343358821_wk7tqxt1q",
+    "timestamp": "2025-10-24T22:02:38.821Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-auth-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333881612_8t4bhwwvn",
-    "timestamp": "2025-10-24T19:24:41.612Z",
+    "id": "log_1761343358581_3tw787b27",
+    "timestamp": "2025-10-24T22:02:38.581Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-auth-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333881377_a7j2dmq4c",
-    "timestamp": "2025-10-24T19:24:41.377Z",
+    "id": "log_1761343358338_k9wl3y7o3",
+    "timestamp": "2025-10-24T22:02:38.338Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-system-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333881138_p9ovqq2mx",
-    "timestamp": "2025-10-24T19:24:41.138Z",
+    "id": "log_1761343358097_uq0r0vseu",
+    "timestamp": "2025-10-24T22:02:38.097Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-system-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333880867_8b14socve",
-    "timestamp": "2025-10-24T19:24:40.867Z",
+    "id": "log_1761343357854_n4yex4ted",
+    "timestamp": "2025-10-24T22:02:37.854Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-export-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333880619_klb5n3zbg",
-    "timestamp": "2025-10-24T19:24:40.619Z",
+    "id": "log_1761343357612_vtmb19tik",
+    "timestamp": "2025-10-24T22:02:37.612Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-export-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333880374_tggiojyfj",
-    "timestamp": "2025-10-24T19:24:40.374Z",
+    "id": "log_1761343357377_l35yepdzq",
+    "timestamp": "2025-10-24T22:02:37.377Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-custom-fields-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333880090_ht1zi9ek5",
-    "timestamp": "2025-10-24T19:24:40.090Z",
+    "id": "log_1761343357138_7sr13bva3",
+    "timestamp": "2025-10-24T22:02:37.138Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-custom-fields-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333879837_ai7hdqqoz",
-    "timestamp": "2025-10-24T19:24:39.837Z",
+    "id": "log_1761343356900_6t82nf3xv",
+    "timestamp": "2025-10-24T22:02:36.900Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-custom-fields-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333879595_hvxcdjtqq",
-    "timestamp": "2025-10-24T19:24:39.595Z",
+    "id": "log_1761343356661_ja4fn51o4",
+    "timestamp": "2025-10-24T22:02:36.661Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-custom-fields-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333879351_jrog9w0uc",
-    "timestamp": "2025-10-24T19:24:39.351Z",
+    "id": "log_1761343356425_9wv4acnjq",
+    "timestamp": "2025-10-24T22:02:36.425Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tags-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333879114_bukikkjpr",
-    "timestamp": "2025-10-24T19:24:39.114Z",
+    "id": "log_1761343356188_tnfcct20b",
+    "timestamp": "2025-10-24T22:02:36.188Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tags-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333878878_6q63ea5li",
-    "timestamp": "2025-10-24T19:24:38.878Z",
+    "id": "log_1761343355948_o1hljtenl",
+    "timestamp": "2025-10-24T22:02:35.948Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tags-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333878637_b170oq2m9",
-    "timestamp": "2025-10-24T19:24:38.637Z",
+    "id": "log_1761343355708_6qokygyqj",
+    "timestamp": "2025-10-24T22:02:35.708Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tags-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333878397_fphwd2vyt",
-    "timestamp": "2025-10-24T19:24:38.397Z",
+    "id": "log_1761343355459_oxvvj7n2a",
+    "timestamp": "2025-10-24T22:02:35.459Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tags-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333878156_x09gn7umd",
-    "timestamp": "2025-10-24T19:24:38.156Z",
+    "id": "log_1761343355215_it1puxwg4",
+    "timestamp": "2025-10-24T22:02:35.215Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-analytics-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333877916_50p3102ss",
-    "timestamp": "2025-10-24T19:24:37.916Z",
+    "id": "log_1761343354977_fafju8ihf",
+    "timestamp": "2025-10-24T22:02:34.977Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-permissions-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333877676_ewzj3fu9b",
-    "timestamp": "2025-10-24T19:24:37.676Z",
+    "id": "log_1761343354741_35sq1lplt",
+    "timestamp": "2025-10-24T22:02:34.741Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-permissions-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333877440_7bry1623s",
-    "timestamp": "2025-10-24T19:24:37.440Z",
+    "id": "log_1761343354505_6v28ls1ik",
+    "timestamp": "2025-10-24T22:02:34.505Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-permissions-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333877198_jkajwlzu5",
-    "timestamp": "2025-10-24T19:24:37.198Z",
+    "id": "log_1761343354268_n9kkps28l",
+    "timestamp": "2025-10-24T22:02:34.268Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-permissions-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333876955_xqf3sguv3",
-    "timestamp": "2025-10-24T19:24:36.955Z",
+    "id": "log_1761343354028_r1jysd7lq",
+    "timestamp": "2025-10-24T22:02:34.028Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-profiles-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333876711_ht4oxvlq3",
-    "timestamp": "2025-10-24T19:24:36.711Z",
+    "id": "log_1761343353783_gfgwmeh2p",
+    "timestamp": "2025-10-24T22:02:33.783Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-profiles-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333876470_mz4bmb9f2",
-    "timestamp": "2025-10-24T19:24:36.470Z",
+    "id": "log_1761343353547_5jt9g880i",
+    "timestamp": "2025-10-24T22:02:33.547Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-profiles-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333876228_7dn6lwqj1",
-    "timestamp": "2025-10-24T19:24:36.228Z",
+    "id": "log_1761343353311_34kyzzrd9",
+    "timestamp": "2025-10-24T22:02:33.311Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-profiles-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333875983_fiscbtzbf",
-    "timestamp": "2025-10-24T19:24:35.983Z",
+    "id": "log_1761343353067_u32wkn9ep",
+    "timestamp": "2025-10-24T22:02:33.067Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-profiles-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333875726_ti10w1966",
-    "timestamp": "2025-10-24T19:24:35.726Z",
+    "id": "log_1761343352824_xpb7a84ga",
+    "timestamp": "2025-10-24T22:02:32.824Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-users-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333875455_30b9txx0l",
-    "timestamp": "2025-10-24T19:24:35.455Z",
+    "id": "log_1761343352580_8ueycrtmv",
+    "timestamp": "2025-10-24T22:02:32.580Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-users-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333875219_p1cyz4a3c",
-    "timestamp": "2025-10-24T19:24:35.219Z",
+    "id": "log_1761343352345_2k0awslpa",
+    "timestamp": "2025-10-24T22:02:32.345Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-users-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333874979_6h4mic2rt",
-    "timestamp": "2025-10-24T19:24:34.979Z",
+    "id": "log_1761343352106_qenmpxvh0",
+    "timestamp": "2025-10-24T22:02:32.106Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-users-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333874740_pd902jcdp",
-    "timestamp": "2025-10-24T19:24:34.740Z",
+    "id": "log_1761343351865_ouya85v4w",
+    "timestamp": "2025-10-24T22:02:31.865Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-users-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333874505_65jysvd3t",
-    "timestamp": "2025-10-24T19:24:34.505Z",
+    "id": "log_1761343351611_kqnx8p699",
+    "timestamp": "2025-10-24T22:02:31.611Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-teams-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333874261_50o9soehz",
-    "timestamp": "2025-10-24T19:24:34.261Z",
+    "id": "log_1761343351368_429pfxyog",
+    "timestamp": "2025-10-24T22:02:31.368Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-teams-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333874024_psgqqp3ch",
-    "timestamp": "2025-10-24T19:24:34.024Z",
+    "id": "log_1761343351129_kz1x60wzt",
+    "timestamp": "2025-10-24T22:02:31.129Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-teams-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333873786_x2fnyurfy",
-    "timestamp": "2025-10-24T19:24:33.786Z",
+    "id": "log_1761343350886_nj5ijpitb",
+    "timestamp": "2025-10-24T22:02:30.886Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-teams-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333873548_qz8awntnm",
-    "timestamp": "2025-10-24T19:24:33.548Z",
+    "id": "log_1761343350647_dabuug1ec",
+    "timestamp": "2025-10-24T22:02:30.647Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-teams-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333873486_7ee8dy2wg",
-    "timestamp": "2025-10-24T19:24:33.486Z",
+    "id": "log_1761343350406_sm7zhpf8h",
+    "timestamp": "2025-10-24T22:02:30.406Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-columns-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333873246_mzyxeyw7t",
-    "timestamp": "2025-10-24T19:24:33.246Z",
+    "id": "log_1761343350171_vg12frctl",
+    "timestamp": "2025-10-24T22:02:30.171Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-columns-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333873010_ebco0fa4l",
-    "timestamp": "2025-10-24T19:24:33.010Z",
+    "id": "log_1761343349930_zex6f6deq",
+    "timestamp": "2025-10-24T22:02:29.930Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-columns-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333872949_hfmol3jkv",
-    "timestamp": "2025-10-24T19:24:32.949Z",
+    "id": "log_1761343349694_p4g4os1yz",
+    "timestamp": "2025-10-24T22:02:29.694Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-columns-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333872880_la3g19se4",
-    "timestamp": "2025-10-24T19:24:32.880Z",
+    "id": "log_1761343349458_dmvt7ocvb",
+    "timestamp": "2025-10-24T22:02:29.458Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-columns-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333872644_4st3tvjlt",
-    "timestamp": "2025-10-24T19:24:32.644Z",
+    "id": "log_1761343349216_yki56qc9d",
+    "timestamp": "2025-10-24T22:02:29.216Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333872398_qek9abeev",
-    "timestamp": "2025-10-24T19:24:32.398Z",
+    "id": "log_1761343348972_si92mummz",
+    "timestamp": "2025-10-24T22:02:28.972Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333872160_qslhjzy8l",
-    "timestamp": "2025-10-24T19:24:32.160Z",
+    "id": "log_1761343348729_g99mzvm15",
+    "timestamp": "2025-10-24T22:02:28.729Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333871894_3ksc9jx1s",
-    "timestamp": "2025-10-24T19:24:31.894Z",
+    "id": "log_1761343346487_2okgf65mc",
+    "timestamp": "2025-10-24T22:02:26.487Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333871651_9sfiby3m2",
-    "timestamp": "2025-10-24T19:24:31.651Z",
+    "id": "log_1761343346229_3ick4gmri",
+    "timestamp": "2025-10-24T22:02:26.229Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-boards-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333871415_axt7i89ue",
-    "timestamp": "2025-10-24T19:24:31.415Z",
+    "id": "log_1761343345961_cie7x04qf",
+    "timestamp": "2025-10-24T22:02:25.961Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-delete: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333871173_u4ecbrle2",
-    "timestamp": "2025-10-24T19:24:31.173Z",
+    "id": "log_1761343345715_fipa04hg3",
+    "timestamp": "2025-10-24T22:02:25.715Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-edit: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333870909_u2333joxn",
-    "timestamp": "2025-10-24T19:24:30.909Z",
+    "id": "log_1761343345473_yxuzikety",
+    "timestamp": "2025-10-24T22:02:25.473Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-create: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333870639_52tcb67i9",
-    "timestamp": "2025-10-24T19:24:30.639Z",
+    "id": "log_1761343345225_8zfv3uwij",
+    "timestamp": "2025-10-24T22:02:25.225Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-view: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333870362_3xqtjoowf",
-    "timestamp": "2025-10-24T19:24:30.362Z",
+    "id": "log_1761343344943_kwi1ko743",
+    "timestamp": "2025-10-24T22:02:24.943Z",
     "level": "error",
     "message": "❌ [PERMISSION SYNC] Erro ao criar permissão perm-tasks-list: error: duplicate key value violates unique constraint \"permissions_name_unique\"",
     "context": "ERROR",
     "actionType": "system"
   },
   {
-    "id": "log_1761333862245_n2daexjcc",
-    "timestamp": "2025-10-24T19:24:22.245Z",
+    "id": "log_1761343339062_7g2czkevc",
+    "timestamp": "2025-10-24T22:02:19.062Z",
     "level": "info",
     "message": "Sistema de logs iniciado",
     "context": "SYSTEM",
