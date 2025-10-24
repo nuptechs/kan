@@ -1,5 +1,5 @@
 import express, { type Router, type Request, type Response } from "express";
-import { eq, and, inArray } from "drizzle-orm";
+import { eq, and, inArray, sql } from "drizzle-orm";
 import { db } from "../db";
 import { users, userProfiles, profiles, profileFunctions, functions, userFunctionOverrides, systems } from "../../shared/schema";
 import { verifyToken, extractTokenFromHeader } from "../auth/jwt";
@@ -60,91 +60,39 @@ router.get("/users/:userId/permissions", async (req: Request, res: Response) => 
   try {
     const { userId } = req.params;
     
-    // Buscar perfis do usuário
-    const userProfilesData = await db.query.userProfiles.findMany({
-      where: eq(userProfiles.userId, userId),
-      with: {
-        profile: {
-          with: {
-            functions: {
-              with: {
-                function: {
-                  with: {
-                    system: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    });
+    // Buscar permissões usando SQL direto (mais eficiente e não depende de relações)
+    const result = await db.execute(sql`
+      SELECT DISTINCT
+        f.id as function_id,
+        f.function_key,
+        f.name,
+        f.category,
+        f.endpoint,
+        s.id as system_id,
+        s.name as system_name
+      FROM identity_user_profiles up
+      JOIN identity_profile_functions pf ON pf.profile_id = up.profile_id
+      JOIN functions f ON f.id = pf.function_id
+      JOIN systems s ON s.id = f.system_id
+      WHERE up.user_id = ${userId}
+        AND pf.granted = true
+      ORDER BY s.name, f.category, f.name
+    `);
     
-    // Buscar overrides de funções do usuário
-    const overrides = await db.query.userFunctionOverrides.findMany({
-      where: eq(userFunctionOverrides.userId, userId),
-      with: {
-        function: {
-          with: {
-            system: true,
-          },
-        },
-      },
-    });
-    
-    // Montar lista de permissões
-    const permissionsMap = new Map<string, {
-      functionId: string;
-      functionKey: string;
-      name: string;
-      category: string;
-      systemId: string;
-      systemName: string;
-      granted: boolean;
-      source: "profile" | "override";
-    }>();
-    
-    // Adicionar permissões dos perfis
-    for (const up of userProfilesData) {
-      for (const pf of up.profile.functions || []) {
-        if (pf.function && pf.granted) {
-          permissionsMap.set(pf.function.id, {
-            functionId: pf.function.id,
-            functionKey: pf.function.functionKey,
-            name: pf.function.name,
-            category: pf.function.category,
-            systemId: pf.function.system.id,
-            systemName: pf.function.system.name,
-            granted: true,
-            source: "profile",
-          });
-        }
-      }
-    }
-    
-    // Aplicar overrides (sobrescreve o que veio dos perfis)
-    for (const override of overrides) {
-      if (override.function) {
-        permissionsMap.set(override.function.id, {
-          functionId: override.function.id,
-          functionKey: override.function.functionKey,
-          name: override.function.name,
-          category: override.function.category,
-          systemId: override.function.system.id,
-          systemName: override.function.system.name,
-          granted: override.granted,
-          source: "override",
-        });
-      }
-    }
-    
-    // Filtrar apenas permissões concedidas
-    const grantedPermissions = Array.from(permissionsMap.values()).filter(p => p.granted);
+    const permissions = result.rows.map((row: any) => ({
+      functionId: row.function_id,
+      functionKey: row.function_key,
+      name: row.name,
+      category: row.category,
+      endpoint: row.endpoint,
+      systemId: row.system_id,
+      systemName: row.system_name,
+    }));
     
     res.json({
       userId,
-      permissions: grantedPermissions,
-      total: grantedPermissions.length,
+      permissions,
+      total: permissions.length,
     });
   } catch (error) {
     console.error("Erro ao buscar permissões:", error);

@@ -1,6 +1,6 @@
 export const config = {
   // Server
-  port: process.env.PORT || 5001,
+  port: process.env.PORT || 3001,
   nodeEnv: process.env.NODE_ENV || "development",
   
   // JWT
@@ -11,12 +11,12 @@ export const config = {
   // Replit Auth (OAuth)
   replitClientId: process.env.REPLIT_CLIENT_ID,
   replitClientSecret: process.env.REPLIT_CLIENT_SECRET,
-  replitCallbackUrl: process.env.REPLIT_CALLBACK_URL || "http://localhost:5001/api/auth/callback/replit",
+  replitCallbackUrl: process.env.REPLIT_CALLBACK_URL || "http://localhost:3001/api/auth/callback/replit",
   
   // WebAuthn (Passkeys)
   rpName: "NuPIdentity", // Relying Party Name
   rpID: process.env.RP_ID || "localhost", // Domain (ex: nuptechs.com)
-  origin: process.env.ORIGIN || "http://localhost:5001",
+  origin: process.env.ORIGIN || "http://localhost:3001",
   
   // Security
   sessionSecret: process.env.SESSION_SECRET || "nupidentity-session-secret-change-in-production",
@@ -28,5 +28,5 @@ export const config = {
   enablePasskeys: process.env.ENABLE_PASSKEYS !== "false", // default true
   
   // CORS
-  corsOrigins: process.env.CORS_ORIGINS?.split(",") || ["http://localhost:5000", "http://localhost:5001"],
+  corsOrigins: process.env.CORS_ORIGINS?.split(",") || ["http://localhost:5000", "http://localhost:3001"],
 };

@@ -32,16 +32,29 @@ export const functions = pgTable("functions", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-// Usuários da central
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  email: text("email").notNull().unique(),
+// =============================================================================
+// KAN USERS (Schema compatível com tabela users compartilhada do Kan)
+// =============================================================================
+
+// IMPORTANTE: Esta tabela é compartilhada com o NuP-Kan
+// Apenas campos que existem na tabela real do Kan devem estar aqui
+export const kanUsers = pgTable("users", {
+  id: varchar("id").primaryKey(), // Kan usa varchar ID
   name: text("name").notNull(),
-  avatar: text("avatar").default(""),
-  
-  // Autenticação local (opcional)
-  password: text("password"), // bcrypt hash
-  emailVerified: boolean("email_verified").default(false),
+  email: text("email").notNull().unique(),
+  password: text("password"),
+  role: text("role"),
+  avatar: text("avatar"),
+  status: text("status"), // online, offline, away
+  profileId: varchar("profile_id"), // FK para profiles
+  createdAt: timestamp("created_at"),
+  updatedAt: timestamp("updated_at"),
+});
+
+// Metadados específicos do NuPIdentity (campos extras que não existem no Kan)
+export const identityUserMetadata = pgTable("identity_user_metadata", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => kanUsers.id, { onDelete: "cascade" }).unique(),
   
   // Autenticação social (OAuth)
   googleId: text("google_id"),
@@ -55,11 +68,15 @@ export const users = pgTable("users", {
   passkeyCounter: integer("passkey_counter").default(0),
   
   // Metadata
-  isActive: boolean("is_active").default(true),
+  emailVerified: boolean("email_verified").default(false),
   lastLoginAt: timestamp("last_login_at"),
+  
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+// Alias para compatibilidade com código existente
+export const users = kanUsers;
 
 // Times
 export const teams = pgTable("teams", {

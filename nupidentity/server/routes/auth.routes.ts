@@ -1,5 +1,5 @@
 import express, { type Router, type Request, type Response } from "express";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import { users, refreshTokens, authEvents, type InsertUser, loginSchema, registerSchema } from "../../shared/schema";
 import { hashPassword, comparePassword, validatePasswordStrength } from "../auth/password";
@@ -110,18 +110,21 @@ router.post("/login", async (req: Request, res: Response) => {
   try {
     const body = loginSchema.parse(req.body);
     
-    // Buscar usuário
-    const user = await db.query.users.findFirst({
-      where: eq(users.email, body.email.toLowerCase()),
-    });
+    // Buscar usuário usando SQL direto (tabela users compartilhada com Kan)
+    const result = await db.execute(sql`
+      SELECT * FROM users WHERE email = ${body.email.toLowerCase()} LIMIT 1
+    `);
+    
+    const user = result.rows[0] as any;
     
     if (!user || !user.password) {
       // Log failed attempt
       await db.insert(authEvents).values({
+        id: nanoid(),
         eventType: "login_failed",
         authMethod: "password",
-        ipAddress: req.ip,
-        userAgent: req.headers["user-agent"],
+        ipAddress: req.ip || "",
+        userAgent: req.headers["user-agent"] || "",
         success: false,
         metadata: JSON.stringify({ email: body.email }),
       });
@@ -137,11 +140,12 @@ router.post("/login", async (req: Request, res: Response) => {
     
     if (!validPassword) {
       await db.insert(authEvents).values({
+        id: nanoid(),
         userId: user.id,
         eventType: "login_failed",
         authMethod: "password",
-        ipAddress: req.ip,
-        userAgent: req.headers["user-agent"],
+        ipAddress: req.ip || "",
+        userAgent: req.headers["user-agent"] || "",
         success: false,
       });
       
@@ -151,35 +155,32 @@ router.post("/login", async (req: Request, res: Response) => {
       });
     }
     
-    // Verificar se usuário está ativo
-    if (!user.isActive) {
+    // Verificar se usuário está ativo (campo is_active do Kan)
+    if (user.is_active === false) {
       return res.status(403).json({
         error: "Conta desativada",
         message: "Sua conta foi desativada. Entre em contato com o suporte",
       });
     }
     
-    // Atualizar lastLoginAt
-    await db.update(users)
-      .set({ lastLoginAt: new Date() })
-      .where(eq(users.id, user.id));
-    
     // Registrar login bem-sucedido
     await db.insert(authEvents).values({
+      id: nanoid(),
       userId: user.id,
       eventType: "login",
       authMethod: "password",
-      ipAddress: req.ip,
-      userAgent: req.headers["user-agent"],
+      ipAddress: req.ip || "",
+      userAgent: req.headers["user-agent"] || "",
       success: true,
     });
     
     // Gerar tokens
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
+    const accessToken = generateAccessToken({ id: user.id, email: user.email, name: user.name });
+    const refreshToken = generateRefreshToken({ id: user.id, email: user.email, name: user.name });
     
     // Salvar refresh token
     await db.insert(refreshTokens).values({
+      id: nanoid(),
       userId: user.id,
       token: refreshToken,
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 dias
@@ -317,9 +318,12 @@ router.post("/logout", requireAuth, async (req: Request, res: Response) => {
  */
 router.get("/me", requireAuth, async (req: Request, res: Response) => {
   try {
-    const user = await db.query.users.findFirst({
-      where: eq(users.id, req.user!.userId),
-    });
+    // Buscar usuário usando SQL direto
+    const result = await db.execute(sql`
+      SELECT * FROM users WHERE id = ${req.user!.userId} LIMIT 1
+    `);
+    
+    const user = result.rows[0] as any;
     
     if (!user) {
       return res.status(404).json({

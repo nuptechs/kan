@@ -59,7 +59,7 @@ if (config.nodeEnv === "development") {
 // =============================================================================
 
 app.use("/api/auth", authRoutes);
-app.use("/api/validate", validationRoutes);
+app.use("/api", validationRoutes); // Validation routes usa paths completos como /users/:id/permissions
 app.use("/api/systems", systemsRoutes);
 
 // TODO: Adicionar mais rotas
