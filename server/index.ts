@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import cookieSession from "cookie-session";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { getIdentitySyncService, stopIdentitySyncService } from "./identitySyncService";
 
 const app = express();
 
@@ -76,7 +77,24 @@ app.use((req, res, next) => {
     port,
     host: "0.0.0.0",
     reusePort: true,
-  }, () => {
+  }, async () => {
     log(`serving on port ${port}`);
+    
+    // Iniciar serviço de sincronização com NuPIdentify
+    const syncService = getIdentitySyncService();
+    await syncService.start();
+  });
+
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    log('SIGTERM received, stopping sync service...');
+    stopIdentitySyncService();
+    process.exit(0);
+  });
+
+  process.on('SIGINT', () => {
+    log('SIGINT received, stopping sync service...');
+    stopIdentitySyncService();
+    process.exit(0);
   });
 })();

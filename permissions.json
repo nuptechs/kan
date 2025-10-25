@@ -4,7 +4,7 @@
     "name": "NuP-Kan - Sistema Kanban",
     "description": "Sistema de gerenciamento de projetos com quadros Kanban",
     "version": "1.0.0",
-    "apiUrl": "http://localhost:5000"
+    "apiUrl": "https://nupkan.replit.dev"
   },
   "functions": [
     {

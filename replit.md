@@ -1,116 +1,174 @@
 # Overview
 
-This project is a **MONOREPO** comprising two core applications:
+Este projeto é o **NuP-Kan**, uma aplicação Kanban com drag-and-drop, gestão de tarefas, limites WIP, analytics e colaboração em equipe.
 
-1.  **NuP-Kan**: A Kanban board application offering drag-and-drop task management, Work-In-Progress (WIP) limits, analytics, and team collaboration features.
-2.  **NuPIdentity**: A centralized identity and access management platform acting as an OAuth2/OIDC provider for all NuPtechs systems. It facilitates Single Sign-On (SSO), centralized authentication, and granular permission management across multiple systems.
+## Arquitetura Multi-Projeto
 
-Both applications share a single PostgreSQL database, with NuPIdentity tables uniquely prefixed to prevent conflicts. The project aims to provide a robust, scalable task management solution integrated with a secure, flexible identity platform for the NuPtechs ecosystem.
+O ecossistema NuPtechs é composto por **projetos separados** que se integram:
 
-# User Preferences
+### 1. **NuP-Kan** (Este Projeto)
+- **Descrição**: Sistema de gerenciamento de projetos com quadros Kanban
+- **URL**: `nupkan.replit.dev`
+- **Porta**: 5000
+- **Banco de Dados**: PostgreSQL exclusivo
+
+### 2. **NuPIdentify** (Projeto Separado)
+- **Descrição**: Central de identidade e autenticação (OAuth2/OIDC provider)
+- **URL**: `nupidentify.replit.dev`
+- **Porta**: 3001
+- **Banco de Dados**: PostgreSQL exclusivo
+- **Função**: SSO, autenticação centralizada, gerenciamento de permissões
+
+### 3. Integração Entre Sistemas
+- NuP-Kan **sincroniza automaticamente** suas permissões (`permissions.json`) com NuPIdentify
+- NuP-Kan **valida tokens JWT** emitidos pelo NuPIdentify
+- NuP-Kan **consulta permissões** do usuário via API do NuPIdentify
+- Pasta `examples/` contém código de referência para integração
+
+## User Preferences
 
 Preferred communication style: Simple, everyday language.
 
-# System Architecture
+# System Architecture - NuP-Kan
 
-## NuPIdentity - Central Identity Platform
+## Frontend Architecture
+- **Framework**: React with TypeScript and Vite
+- **UI/UX**: `shadcn/ui` component library built on Radix UI primitives, styled with Tailwind CSS
+- **State Management**: TanStack Query for server state
+- **Routing**: Wouter for client-side routing
+- **Interactivity**: `react-beautiful-dnd` for drag-and-drop, React Hook Form with Zod for form management
 
-### Server Backend
--   **Framework**: Express.js with TypeScript (running on port 3001).
--   **Authentication**: JWT tokens with refresh token mechanism.
--   **Database**: Shared PostgreSQL instance with NuP-Kan; `identity_` prefixed tables.
--   **ORM**: Drizzle ORM, utilizing direct SQL queries for schema compatibility.
+## Backend Architecture
+- **Framework**: Express.js with TypeScript
+- **Database**: PostgreSQL with Drizzle ORM
+- **API Design**: RESTful JSON API
+- **Development**: Vite middleware for integrated full-stack development
 
-### Data Model
--   **Core Tables (`identity_` prefix)**:
-    -   `systems`: Registered applications (e.g., NuP-Kan).
-    -   `functions`: System-specific permissions, synchronized via `permissions.json`.
-    -   `profiles`: Access roles (e.g., "Global Administrator").
-    -   `profile_functions`: N:N relationship between profiles and functions.
-    -   `user_profiles`: N:N relationship between users and profiles.
-    -   `teams`: Organizational teams.
-    -   `user_teams`: N:N relationship between users and teams.
-    -   `oauth_clients`, `oauth_tokens`, `webauthn_credentials`.
--   **Auxiliary Tables**: `kanUsers` (mirrors NuP-Kan `users` for read-only access), `identity_user_metadata`.
+## Data Layer
+- **ORM**: Drizzle ORM for PostgreSQL
+- **Schema**: Shared type-safe schemas between client and server using Drizzle-Zod
+- **Database Structure**: Includes tables for tasks, columns (with WIP limits), team members, users, teams, and a `UserTeams` junction table for N:N user-team relationships with roles. Profiles and permissions tables support access control.
+- **Persistence**: All application data (tasks, columns, teams, user-team relationships) is stored in PostgreSQL
 
-### API Endpoints (Core Functionality)
--   **Authentication (`/api/auth`)**: Register, Login (returns JWT), Refresh Token, Logout, Get authenticated user data (`/me`).
--   **Validation (`/api`)**: Validate JWT tokens, retrieve user-specific permissions for all systems or a specific system.
--   **Systems (`/api/systems`)**: List registered systems, synchronize functions from `permissions.json`.
+## Key Features
+- **Kanban Board**: Column-based task organization with drag-and-drop
+- **WIP Limits**: Configurable limits per column with visual feedback
+- **Task Management**: Comprehensive CRUD for tasks with real-time updates
+- **Team Management**: User assignment and status tracking within teams
+- **Analytics**: Performance metrics (cycle time, throughput)
+- **Settings Panel**: Dynamic board customization
+- **Timeline & Comments**: Task history and comments integrated into task details
+- **Email System**: Automated emails using SendGrid with responsive HTML templates
 
-### Frontend Architecture
--   **Framework**: React with TypeScript and Vite (integrated with Express via custom middleware).
--   **UI/UX**: `shadcn/ui` component library with Radix UI primitives, styled with Tailwind CSS matching NuP-Kan design system.
--   **State Management**: TanStack Query for server state, React Hook Form with Zod for form validation.
--   **Routing**: Wouter for client-side routing.
--   **Development**: Vite dev server integrated via custom `server/vite.ts` middleware with HMR support.
+## Integration with NuPIdentify
 
-### Frontend Features
--   **Login Page**: Email/password authentication with real-time validation and error handling.
--   **Registration Flow**: User signup with validation and automatic JWT token handling.
--   **Auto-login Check**: Automatically verifies if user has valid session on page load.
--   **Type-Safe API**: queryClient configured with automatic token attachment and error handling.
+### Automatic Permission Synchronization
+NuP-Kan mantém um arquivo `permissions.json` que define todas as funcionalidades do sistema. Este arquivo é **automaticamente sincronizado** com o NuPIdentify sempre que:
 
-### Single Sign-On (SSO) Flow
-The system supports a standard SSO flow where NuP-Kan redirects to NuPIdentity for user authentication, receiving a JWT token in return. Subsequent API calls from NuP-Kan to NuPIdentity validate the token and fetch user permissions.
+1. **Na inicialização do servidor** - Sincronização inicial
+2. **A cada 5 minutos** - Sincronização periódica automática
+3. **Manualmente** - Via comando `npm run sync:permissions`
+4. **Após alterações** - Quando o arquivo `permissions.json` é modificado
 
-## NuP-Kan - Kanban Board Application
+### Permission Structure (`permissions.json`)
+```json
+{
+  "system": {
+    "id": "nup-kan",
+    "name": "NuP-Kan - Sistema Kanban",
+    "description": "Sistema de gerenciamento de projetos com quadros Kanban",
+    "version": "1.0.0",
+    "apiUrl": "https://nupkan.replit.dev"
+  },
+  "functions": [
+    {
+      "key": "tasks-list",
+      "name": "Listar Tasks",
+      "category": "Tasks",
+      "description": "Permitir listar tasks",
+      "endpoint": "GET /api/tasks"
+    }
+  ]
+}
+```
 
-### Frontend Architecture
--   **Framework**: React with TypeScript and Vite.
--   **UI/UX**: `shadcn/ui` component library built on Radix UI primitives, styled with Tailwind CSS using a custom design system.
--   **State Management**: TanStack Query for server state.
--   **Routing**: Wouter for client-side routing.
--   **Interactivity**: `react-beautiful-dnd` for drag-and-drop, React Hook Form with Zod for form management.
+### Environment Variables Required
+```bash
+# URL do NuPIdentify
+IDENTITY_URL=https://nupidentify.replit.dev
 
-### Backend Architecture
--   **Framework**: Express.js with TypeScript.
--   **Database**: PostgreSQL with Drizzle ORM.
--   **API Design**: RESTful JSON API.
--   **Development**: Vite middleware for integrated full-stack development.
+# Token de administrador para sincronização
+IDENTITY_SYNC_TOKEN=<jwt-token-admin>
 
-### Data Layer
--   **ORM**: Drizzle ORM for PostgreSQL.
--   **Schema**: Shared type-safe schemas between client and server using Drizzle-Zod.
--   **Database Structure**: Includes tables for tasks, columns (with WIP limits), team members, users, teams, and a `UserTeams` junction table for N:N user-team relationships with roles. Profiles and permissions tables support access control.
--   **Persistence**: All application data (tasks, columns, teams, user-team relationships) is stored in PostgreSQL.
--   **User-Team Management API**: Full CRUD operations for managing user-team memberships and roles.
+# Habilitar sincronização automática (default: true)
+AUTO_SYNC_PERMISSIONS=true
 
-### Key Features
--   **Kanban Board**: Column-based task organization with drag-and-drop.
--   **WIP Limits**: Configurable limits per column with visual feedback.
--   **Task Management**: Comprehensive CRUD for tasks with real-time updates.
--   **Team Management**: User assignment and status tracking within teams.
--   **Analytics**: Performance metrics (cycle time, throughput).
--   **Settings Panel**: Dynamic board customization.
--   **Timeline & Comments**: Task history and comments integrated into task details.
--   **Email System**: Automated emails (e.g., welcome emails) using SendGrid with responsive HTML templates.
+# Intervalo de sincronização em minutos (default: 5)
+SYNC_INTERVAL_MINUTES=5
+```
 
-### Development Patterns
--   **Monorepo**: Client, server, and shared code within a single repository.
--   **Type Safety**: End-to-end TypeScript with shared types and schema validation.
--   **Component-Based UI**: Reusable UI components.
--   **API Integration**: Consistent error handling and loading states for data operations.
+### Sync Service Features
+- ✅ Sincronização automática na inicialização
+- ✅ Sincronização periódica (intervalo configurável)
+- ✅ Retry automático em caso de falha (3 tentativas)
+- ✅ Logs detalhados de todas as operações
+- ✅ Verificação de conectividade com NuPIdentify
+- ✅ Graceful shutdown ao parar o servidor
+
+### Manual Sync Commands
+```bash
+# Sincronizar permissões manualmente
+npm run sync:permissions
+
+# Verificar diferenças sem sincronizar
+npm run sync:check
+```
+
+### Integration Examples
+A pasta `examples/` contém código de referência:
+- `express-integration.js` - Exemplo completo de API integrada
+- `middleware-auth.js` - Middleware de autenticação e autorização
+- `sync-permissions.js` - Script standalone de sincronização
+- `README.md` - Documentação detalhada
+
+## Development Patterns
+- **Type Safety**: End-to-end TypeScript with shared types and schema validation
+- **Component-Based UI**: Reusable UI components
+- **API Integration**: Consistent error handling and loading states for data operations
+- **Permission-Based Access**: Integration with NuPIdentify for centralized permission management
 
 # External Dependencies
 
 ## Database
--   **Neon Database**: Serverless PostgreSQL hosting.
+- **Neon Database**: Serverless PostgreSQL hosting (banco exclusivo para NuP-Kan)
 
 ## UI Frameworks
--   **shadcn/ui**: Component library.
--   **Radix UI**: Low-level UI primitives.
--   **Tailwind CSS**: Utility-first CSS framework.
+- **shadcn/ui**: Component library
+- **Radix UI**: Low-level UI primitives
+- **Tailwind CSS**: Utility-first CSS framework
 
 ## Development Tools
--   **Vite**: Build tool and dev server.
--   **TypeScript**: Static type checking.
--   **ESBuild**: Fast JavaScript bundler.
+- **Vite**: Build tool and dev server
+- **TypeScript**: Static type checking
+- **ESBuild**: Fast JavaScript bundler
 
 ## Runtime Libraries
--   **TanStack Query**: Server state management.
--   **React Beautiful DnD**: Drag-and-drop.
--   **React Hook Form**: Form management.
--   **Zod**: Runtime type validation.
--   **Date-fns**: Date manipulation utilities.
--   **SendGrid**: Email service provider.
+- **TanStack Query**: Server state management
+- **React Beautiful DnD**: Drag-and-drop
+- **React Hook Form**: Form management
+- **Zod**: Runtime type validation
+- **Date-fns**: Date manipulation utilities
+- **SendGrid**: Email service provider
+
+## Integration
+- **NuPIdentify**: Centralized identity and permission management (projeto separado)
+
+# Recent Changes
+
+## 2025-10-25: Migração para Arquitetura Multi-Projeto
+- ✅ NuPIdentify migrado para projeto Replit separado
+- ✅ Banco de dados PostgreSQL exclusivo para cada projeto
+- ✅ Sistema de sincronização automática de permissões implementado
+- ✅ Pasta `examples/` criada com código de integração
+- ✅ Scripts npm adicionados para facilitar sincronização
+- ✅ Documentação atualizada para refletir nova arquitetura
