@@ -1,5 +1,77 @@
 [
   {
+    "id": "log_1761361132883_sm3nr2597",
+    "timestamp": "2025-10-25T02:58:52.883Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1761361127877_01xm9l8s6",
+    "timestamp": "2025-10-25T02:58:47.877Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1761361122870_u473fe9r7",
+    "timestamp": "2025-10-25T02:58:42.870Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1761360832879_w71x3dgmn",
+    "timestamp": "2025-10-25T02:53:52.879Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1761360827875_2r3dgxhf0",
+    "timestamp": "2025-10-25T02:53:47.875Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1761360822868_o4df6l4vg",
+    "timestamp": "2025-10-25T02:53:42.868Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1761360532880_n3pxmd43e",
+    "timestamp": "2025-10-25T02:48:52.880Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1761360527874_9v0fa3fjv",
+    "timestamp": "2025-10-25T02:48:47.874Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
+    "id": "log_1761360522870_qrw1mhezx",
+    "timestamp": "2025-10-25T02:48:42.870Z",
+    "level": "error",
+    "message": "❌ [IDENTITY SYNC] Erro na sincronização: fetch failed",
+    "context": "ERROR",
+    "actionType": "system"
+  },
+  {
     "id": "log_1761360230409_a3c59mpuw",
     "timestamp": "2025-10-25T02:43:50.409Z",
     "level": "error",
